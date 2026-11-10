@@ -1,0 +1,4 @@
+variable "environtment" {
+     default = "ansible"
+   
+}
