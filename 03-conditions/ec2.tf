@@ -1,7 +1,9 @@
 resource "aws_instance" "conditions" {
   ami = "ami-0055977a6e828a4f4"
   instance_type = var.environtment == "dev" ? "t3.micro" : "t3.medium"
-  vpc_security_group_ids = [aws_security_group.conditions.id]
+  vpc_security_group_ids = [
+    aws_security_group.common.id,
+    ]
 
   tags = {
     Name = "roboshop-conditions"

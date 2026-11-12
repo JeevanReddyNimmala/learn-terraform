@@ -21,7 +21,7 @@ resource "aws_security_group" "functions" {
  ingress {
     from_port        = each.valur.port_no
     to_port          = each.valur.port_no
-    protocol         = "-1"
+    protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 

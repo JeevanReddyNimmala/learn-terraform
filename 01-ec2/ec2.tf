@@ -1,17 +1,21 @@
-resource "aws_instance" "web" {
+resource "aws_instance" "provisioners" {
   ami           = "ami-0055977a6e828a4f4"
   instance_type = "t3.micro"
-  vpc_security_group_ids = [aws_security_group.web.id]
+  vpc_security_group_ids = [aws_security_group.provisioners.id]
 
-  tags = {
-    Name = "roboshop-web"
+  
+  provisioner "local-exec" {
+    command = "echo ${self.private_ip} > inventory.ini"
+  }  
+  
+
+   tags = {
+    Name = "roboshop-provisioners"
   }  
 
-  }
-
-
-resource "aws_security_group" "web" {
-  name        = "web"
+}
+resource "aws_security_group" "provisioners" {
+  name        = "provisioners"
   description = "Allow TLS inbound traffic and all outbound traffic"
   
  ingress {
@@ -30,7 +34,7 @@ resource "aws_security_group" "web" {
   }
 
   tags = {
-    Name = "roboshop-web"
+    Name = "roboshop-provisioners"
   }
 }
 
